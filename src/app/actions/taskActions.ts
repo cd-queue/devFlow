@@ -1,16 +1,42 @@
 
 "use server";
-
 import { prisma } from "@/lib/prisma";
 import { revalidatePath } from "next/cache";
+import { auth } from "@/lib/auth/server";
 
+async function getCurrentUser() {
+  const { data, error } = await auth.getSession();
+
+  if (error || !data?.session || !data.user) {
+    return null;
+  }
+
+  const authUser = data.user;
+
+  const user = await prisma.user.upsert({
+    where: {
+      id: authUser.id,
+    },
+    update: {
+      email: authUser.email,
+      name: authUser.name,
+    },
+    create: {
+      id: authUser.id,
+      email: authUser.email,
+      name: authUser.name,
+    },
+  });
+
+  return user;
+}
 type CreateTaskInput = {
   title: string;
   description: string;
   priority: "LOW" | "MEDIUM" | "HIGH";
   status: "TODO" | "IN_PROGRESS" | "DONE";
-  userId: string;
 };
+
 // In src/app/actions/taskActions.ts line 15:
 export async function createDemoUser(): Promise<
   | { success: true; userId: string; message: string } // <-- Change "string | number" to "string"
@@ -43,19 +69,16 @@ export async function createDemoUser(): Promise<
 
 export async function createTask(input: CreateTaskInput) {
   try {
+    const user = await getCurrentUser();
+
+    if (!user) {
+      return { success: false, message: "Please login first." };
+    }
+
     const title = input.title.trim();
 
     if (!title) {
-      return { success: false, message: "Title is required" };
-    }
-
-    const user = await prisma.user.findUnique({
-      where: { id: input.userId },
-      select: { id: true },
-    });
-
-    if (!user) {
-      return { success: false, message: "User not found" };
+      return { success: false, message: "Title is required." };
     }
 
     await prisma.task.create({
@@ -70,10 +93,10 @@ export async function createTask(input: CreateTaskInput) {
 
     revalidatePath("/");
 
-    return { success: true, message: "Task created successfully" };
+    return { success: true, message: "Task created successfully." };
   } catch (error) {
     console.error("Create task failed:", error);
-    return { success: false, message: "Failed to create task" };
+    return { success: false, message: "Failed to create task." };
   }
 }
 
@@ -82,33 +105,61 @@ export async function updateTaskStatus(
   status: "TODO" | "IN_PROGRESS" | "DONE"
 ) {
   try {
-    await prisma.task.update({
-      where: { id: taskId },
-      data: { status },
+    const user = await getCurrentUser();
+
+    if (!user) {
+      return { success: false, message: "Please login first." };
+    }
+
+    const result = await prisma.task.updateMany({
+      where: {
+        id: taskId,
+        userId: user.id,
+      },
+      data: {
+        status,
+      },
     });
 
+    if (result.count === 0) {
+      return { success: false, message: "Task not found." };
+    }
+
     revalidatePath("/");
-    return { success: true, message: "Task status updated" };
+
+    return { success: true, message: "Task status updated." };
   } catch (error) {
     console.error("Update task status failed:", error);
-    return { success: false, message: "Failed to update task status" };
+    return { success: false, message: "Failed to update task status." };
   }
 }
 
 
 export async function deleteTask(taskId: string) {
   try {
-    await prisma.task.delete({
+    const user = await getCurrentUser();
+
+    if (!user) {
+      return { success: false, message: "Please login first." };
+    }
+
+    const result = await prisma.task.deleteMany({
       where: {
         id: taskId,
+        userId: user.id,
       },
     });
 
+    if (result.count === 0) {
+      return { success: false, message: "Task not found." };
+    }
+
     revalidatePath("/");
-    return { success: true, message: "Task deleted successfully" };
+
+    return { success: true, message: "Task deleted successfully." };
   } catch (error) {
     console.error("Delete task failed:", error);
-    return { success: false, message: "Failed to delete task" };
+    return { success: false, message: "Failed to delete task." };
   }
 }
 
@@ -122,14 +173,23 @@ type EditTaskInput = {
 
 export async function editTask(input: EditTaskInput) {
   try {
+    const user = await getCurrentUser();
+
+    if (!user) {
+      return { success: false, message: "Please login first." };
+    }
+
     const title = input.title.trim();
 
     if (!title) {
-      return { success: false, message: "Title is required" };
+      return { success: false, message: "Title is required." };
     }
 
-    await prisma.task.update({
-      where: { id: input.taskId },
+    const result = await prisma.task.updateMany({
+      where: {
+        id: input.taskId,
+        userId: user.id,
+      },
       data: {
         title,
         description: input.description.trim() || null,
@@ -137,11 +197,14 @@ export async function editTask(input: EditTaskInput) {
       },
     });
 
-    revalidatePath("/");
+    if (result.count === 0) {
+      return { success: false, message: "Task not found." };
+    }
 
-    return { success: true, message: "Task updated successfully" };
+    revalidatePath("/");
+    return { success: true, message: "Task updated successfully." };
   } catch (error) {
     console.error("Edit task failed:", error);
-    return { success: false, message: "Failed to update task" };
+    return { success: false, message: "Failed to edit task." };
   }
 }

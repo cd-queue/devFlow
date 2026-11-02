@@ -96,7 +96,6 @@ export default function CreateTaskForm({
           description,
           priority,
           status,
-          userId,
         });
 
         if (result.success) {

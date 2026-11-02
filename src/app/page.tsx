@@ -1,16 +1,27 @@
 import React from "react";
 import { prisma } from "@/lib/prisma"
 import TaskBoardClient from "@/components/TaskBoardClient";
+import { auth } from "@/lib/auth/server";
 
 export default async function Home() {
 
+const { data, error } = await auth.getSession();
 
-  const tasks = await prisma.task.findMany({
-    orderBy: {
-      createdAt: "desc",
-    },
-  });
-
+const user =
+  !error && data?.session && data.user
+    ? data.user
+    : null;
+  const tasks = user
+  ? await prisma.task.findMany({
+      where: {
+        userId: user.id,
+      },
+      orderBy: {
+        createdAt: "desc",
+      },
+    })
+  : [];
+  
   const totalTasks = tasks.length;
   const inProgressTasks = tasks.filter(
     (task) => task.status === "IN_PROGRESS"
