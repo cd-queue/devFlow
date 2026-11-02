@@ -17,10 +17,12 @@ type Task = {
 
 type TaskBoardClientProps = {
     tasks: Task[];
+    isLoggedIn: boolean;
 };
 
 export default function TaskBoardClient({
     tasks,
+    isLoggedIn,
 }: TaskBoardClientProps) {
     const [selectedTask, setSelectedTask] = useState<Task | null>(null);
 
@@ -76,24 +78,26 @@ export default function TaskBoardClient({
                                                 {task.description || "No description"}
                                             </p>
 
-                                            <div className="flex flex-wrap items-center gap-3 pt-2 border-t border-slate-100">
-                                                <UpdateTaskStatus
-                                                    taskId={task.id}
-                                                    currentStatus={task.status}
-                                                />
+                                            {isLoggedIn && (
+                                                <div className="flex flex-wrap items-center gap-3 pt-2 border-t border-slate-100">
+                                                    <UpdateTaskStatus
+                                                        taskId={task.id}
+                                                        currentStatus={task.status}
+                                                    />
 
-                                                <EditTaskButton
-                                                    onEdit={() => {
-                                                        setSelectedTask(task);
+                                                    <EditTaskButton
+                                                        onEdit={() => {
+                                                            setSelectedTask(task);
 
-                                                        document
-                                                            .getElementById("create-task")
-                                                            ?.scrollIntoView({ behavior: "smooth" });
-                                                    }}
-                                                />
+                                                            document
+                                                                .getElementById("create-task")
+                                                                ?.scrollIntoView({ behavior: "smooth" });
+                                                        }}
+                                                    />
 
-                                                <DeleteTaskBtn taskId={task.id} />
-                                            </div>
+                                                    <DeleteTaskBtn taskId={task.id} />
+                                                </div>
+                                            )}
                                         </div>
                                     ))}
                                 </div>
@@ -108,20 +112,39 @@ export default function TaskBoardClient({
                 className="max-w-3xl mx-auto px-6 w-full mb-16"
             >
                 <div className="bg-white border border-slate-200 rounded-2xl p-6 sm:p-8 shadow-sm">
-                    <h2 className="text-xl font-bold text-slate-900 mb-1">
-                        {selectedTask ? "Edit Task" : "Create New Task"}
-                    </h2>
+                    {isLoggedIn ? (
+                        <>
+                            <h2 className="text-xl font-bold text-slate-900 mb-1">
+                                {selectedTask ? "Edit Task" : "Create New Task"}
+                            </h2>
 
-                    <p className="text-sm text-slate-500 mb-6">
-                        {selectedTask
-                            ? "Update the selected task."
-                            : "Add a new task to your board."}
-                    </p>
+                            <p className="text-sm text-slate-500 mb-6">
+                                {selectedTask
+                                    ? "Update the selected task."
+                                    : "Add a new task to your board."}
+                            </p>
 
-                    <CreateTaskForm
-                        taskToEdit={selectedTask}
-                        onTaskSaved={() => setSelectedTask(null)}
-                    />
+                            <CreateTaskForm
+                                taskToEdit={selectedTask}
+                                onTaskSaved={() => setSelectedTask(null)}
+                            />
+                        </>
+                    ) : (
+                        <div className="text-center">
+                            <h2 className="text-xl font-bold mb-2">
+                                Want to manage your tasks?
+                            </h2>
+                            <p className="text-sm text-slate-500 mb-4">
+                                Sign in to create, edit and manage your own tasks.
+                            </p>
+                            <a
+                                href="/auth/sign-in"
+                                className="inline-block bg-blue-600 hover:bg-blue-700 text-white px-5 py-2 rounded-lg text-sm font-medium"
+                            >
+                                Sign In
+                            </a>
+                        </div>
+                    )}
                 </div>
             </section>
         </>

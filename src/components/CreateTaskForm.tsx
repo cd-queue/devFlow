@@ -4,7 +4,6 @@
 import { useEffect, useState } from "react";
 import {
   createTask,
-  createDemoUser,
   editTask,
 } from "@/app/actions/taskActions";
 
@@ -25,7 +24,6 @@ export default function CreateTaskForm({
   taskToEdit = null,
   onTaskSaved,
 }: CreateTaskFormProps) {
-  const [userId, setUserId] = useState("");
   const [title, setTitle] = useState(taskToEdit?.title ?? "");
   const [description, setDescription] = useState(
     taskToEdit?.description ?? ""
@@ -52,12 +50,12 @@ export default function CreateTaskForm({
   }, [taskToEdit]);
 
   function resetForm() {
-  setTitle("");
-  setDescription("");
-  setPriority("MEDIUM");
-  setStatus("TODO");
-  setMessage("");
-}
+    setTitle("");
+    setDescription("");
+    setPriority("MEDIUM");
+    setStatus("TODO");
+    setMessage("");
+  }
   async function handleSubmit() {
     if (!title.trim()) {
       setMessage("Title is required.");
@@ -86,10 +84,6 @@ export default function CreateTaskForm({
         }
       } else {
         // Create a new task
-        if (!userId) {
-          setMessage("Please create a demo user first.");
-          return;
-        }
 
         const result = await createTask({
           title,
@@ -117,29 +111,10 @@ export default function CreateTaskForm({
     }
   }
 
-  async function handleCreateUser() {
-    const result = await createDemoUser();
 
-    if (result.success && "userId" in result) {
-      setUserId(result.userId);
-      setMessage(result.message);
-    } else {
-      setMessage(result.message);
-    }
-  }
 
   return (
     <>
-      {!taskToEdit && (
-        <button
-          type="button"
-          onClick={handleCreateUser}
-          className="mb-4 rounded-lg border px-4 py-2 text-sm"
-        >
-          Create Demo User
-        </button>
-      )}
-
       <form
         className="space-y-4"
         onSubmit={(e) => {
@@ -216,7 +191,7 @@ export default function CreateTaskForm({
 
         <button
           type="submit"
-          disabled={isSaving || !title.trim() || (!taskToEdit && !userId)}
+          disabled={isSaving || !title.trim()}
           className="rounded-lg bg-blue-600 px-6 py-2 text-white hover:bg-blue-700 disabled:cursor-not-allowed disabled:opacity-50"
         >
           {isSaving
@@ -229,9 +204,9 @@ export default function CreateTaskForm({
         {taskToEdit && (
           <button
             type="button"
-            disabled = {isSaving}
+            disabled={isSaving}
             onClick={() => {
-              onTaskSaved?.(); 
+              onTaskSaved?.();
               resetForm();
             }
             }

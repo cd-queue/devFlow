@@ -39,6 +39,26 @@ export default function SignInPage() {
     }
   }
 
+  async function handleGoogleSignIn() {
+    setMessage("");
+    setLoading(true);
+
+    try {
+      const result = await authClient.signIn.social({
+        provider: "google",
+        callbackURL: `${window.location.origin}/`,
+      });
+
+      if (result.error) {
+        setMessage(result.error.message || "Google sign-in failed.");
+        setLoading(false);
+      }
+    } catch {
+      setMessage("Google sign-in failed. Please try again.");
+      setLoading(false);
+    }
+  }
+
   return (
     <main className="flex min-h-screen items-center justify-center bg-slate-950 p-6 text-white">
       <form
@@ -93,6 +113,20 @@ export default function SignInPage() {
           className="w-full rounded-lg bg-blue-600 p-3 font-semibold hover:bg-blue-500 disabled:opacity-50"
         >
           {loading ? "Signing in..." : "Sign in"}
+        </button>
+        <div className="flex items-center gap-3">
+          <div className="h-px flex-1 bg-slate-700" />
+          <span className="text-sm text-slate-400">OR</span>
+          <div className="h-px flex-1 bg-slate-700" />
+        </div>
+
+        <button
+          type="button"
+          onClick={handleGoogleSignIn}
+          disabled={loading}
+          className="w-full rounded-lg border border-slate-700 bg-white p-3 font-semibold text-slate-900 hover:bg-slate-200 disabled:opacity-50"
+        >
+          Continue with Google
         </button>
 
         <p className="text-center text-sm text-slate-400">

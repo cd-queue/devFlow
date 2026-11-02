@@ -2,17 +2,18 @@ import React from "react";
 import { prisma } from "@/lib/prisma"
 import TaskBoardClient from "@/components/TaskBoardClient";
 import { auth } from "@/lib/auth/server";
+import SignOutButton from "@/components/SignOutButton";
 
 export default async function Home() {
 
-const { data, error } = await auth.getSession();
+  const { data, error } = await auth.getSession();
 
-const user =
-  !error && data?.session && data.user
-    ? data.user
-    : null;
+  const user =
+    !error && data?.session && data.user
+      ? data.user
+      : null;
   const tasks = user
-  ? await prisma.task.findMany({
+    ? await prisma.task.findMany({
       where: {
         userId: user.id,
       },
@@ -20,8 +21,8 @@ const user =
         createdAt: "desc",
       },
     })
-  : [];
-  
+    : [];
+
   const totalTasks = tasks.length;
   const inProgressTasks = tasks.filter(
     (task) => task.status === "IN_PROGRESS"
@@ -29,7 +30,7 @@ const user =
   const completed = tasks.filter(
     (task) => task.status === "DONE"
   ).length;
-  
+
   // Sample data to preview the board UI
   const stats = [
     { label: "Total Tasks", value: totalTasks.toString(), change: "+12% this week" },
@@ -60,14 +61,35 @@ const user =
               Live DB
             </span>
           </div>
-
           <div className="flex items-center gap-4">
-            <a
-              href="#create-task"
-              className="bg-blue-600 hover:bg-blue-700 text-white font-medium text-sm px-4 py-2 rounded-lg transition shadow-sm"
-            >
-              + New Task
-            </a>
+            {user ? (
+              <>
+                <a
+                  href="#create-task"
+                  className="bg-blue-600 hover:bg-blue-700 text-white font-medium text-sm px-4 py-2 rounded-lg transition shadow-sm"
+                >
+                  + New Task
+                </a>
+
+                <SignOutButton />
+              </>
+            ) : (
+              <>
+                <a
+                  href="/auth/sign-in"
+                  className="text-sm font-medium text-slate-700 hover:text-blue-600"
+                >
+                  Sign In
+                </a>
+
+                <a
+                  href="/auth/sign-up"
+                  className="bg-blue-600 hover:bg-blue-700 text-white font-medium text-sm px-4 py-2 rounded-lg transition"
+                >
+                  Sign Up
+                </a>
+              </>
+            )}
           </div>
         </div>
       </header>
@@ -91,12 +113,14 @@ const user =
           </p>
 
           <div className="mt-8 flex flex-wrap items-center justify-center gap-4">
-            <a
-              href="#create-task"
-              className="px-6 py-3 rounded-lg bg-blue-600 hover:bg-blue-700 text-white font-semibold text-sm transition shadow-sm hover:shadow"
-            >
-              Create Task
-            </a>
+            {user && (
+              <a
+                href="#create-task"
+                className="px-6 py-3 rounded-lg bg-blue-600 hover:bg-blue-700 text-white font-semibold text-sm transition shadow-sm hover:shadow"
+              >
+                Create Task
+              </a>
+            )}
             <a
               href="#board"
               className="px-6 py-3 rounded-lg bg-white hover:bg-slate-50 text-slate-700 font-semibold text-sm border border-slate-300 transition"
@@ -128,9 +152,12 @@ const user =
           </div>
         </section>
 
-       
-{/* 4. Task Board and Create/Edit Form */}
-<TaskBoardClient tasks={tasks} />
+
+        {/* 4. Task Board and Create/Edit Form */}
+        <TaskBoardClient
+          tasks={tasks}
+          isLoggedIn={!!user}
+        />
 
       </main>
 

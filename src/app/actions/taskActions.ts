@@ -1,5 +1,9 @@
 
 "use server";
+import { createTaskSchema } from "@/lib/validations/taskSchema";
+import { updateTaskStatusSchema } from "@/lib/validations/taskSchema";
+import { editTaskSchema } from "@/lib/validations/taskSchema";
+import { deleteTaskSchema } from "@/lib/validations/taskSchema";
 import { prisma } from "@/lib/prisma";
 import { revalidatePath } from "next/cache";
 import { auth } from "@/lib/auth/server";
@@ -37,35 +41,6 @@ type CreateTaskInput = {
   status: "TODO" | "IN_PROGRESS" | "DONE";
 };
 
-// In src/app/actions/taskActions.ts line 15:
-export async function createDemoUser(): Promise<
-  | { success: true; userId: string; message: string } // <-- Change "string | number" to "string"
-  | { success: false; message: string }
->{
-  try {
-    const user = await prisma.user.upsert({
-      where: { email: "demo@devflow.com" },
-      update: {},
-      create: {
-        email: "demo@devflow.com",
-        name: "Demo User",
-      },
-    });
-
-    return {
-      success: true,
-      userId: user.id,
-      message: "Demo user created successfully.",
-    };
-  } catch (error) {
-    console.error("Failed to create demo user:", error);
-
-    return {
-      success: false,
-      message: "Failed to create demo user.",
-    };
-  }
-}
 
 export async function createTask(input: CreateTaskInput) {
   try {
@@ -75,18 +50,23 @@ export async function createTask(input: CreateTaskInput) {
       return { success: false, message: "Please login first." };
     }
 
-    const title = input.title.trim();
+    const validation = createTaskSchema.safeParse(input);
 
-    if (!title) {
-      return { success: false, message: "Title is required." };
+    if (!validation.success) {
+      return {
+        success: false,
+        message: validation.error.issues[0].message,
+      };
     }
+    const { title, description, priority, status } = validation.data;
+
 
     await prisma.task.create({
       data: {
         title,
-        description: input.description.trim() || null,
-        priority: input.priority,
-        status: input.status,
+        description: description.trim() || null,
+        priority,
+        status,
         userId: user.id,
       },
     });
@@ -109,6 +89,18 @@ export async function updateTaskStatus(
 
     if (!user) {
       return { success: false, message: "Please login first." };
+    }
+
+    const validation = updateTaskStatusSchema.safeParse({
+      taskId,
+      status,
+    });
+
+    if (!validation.success) {
+      return {
+        success: false,
+        message: validation.error.issues[0].message,
+      };
     }
 
     const result = await prisma.task.updateMany({
@@ -142,10 +134,18 @@ export async function deleteTask(taskId: string) {
     if (!user) {
       return { success: false, message: "Please login first." };
     }
+    const validation = deleteTaskSchema.safeParse({ taskId });
+
+    if (!validation.success) {
+      return {
+        success: false,
+        message: validation.error.issues[0].message,
+      };
+    }
 
     const result = await prisma.task.deleteMany({
       where: {
-        id: taskId,
+        id: validation.data.taskId,
         userId: user.id,
       },
     });
@@ -178,22 +178,26 @@ export async function editTask(input: EditTaskInput) {
     if (!user) {
       return { success: false, message: "Please login first." };
     }
+    const validation = editTaskSchema.safeParse(input);
 
-    const title = input.title.trim();
-
-    if (!title) {
-      return { success: false, message: "Title is required." };
+    if (!validation.success) {
+      return {
+        success: false,
+        message: validation.error.issues[0].message,
+      };
     }
+
+    const { taskId, title, description, priority } = validation.data;
 
     const result = await prisma.task.updateMany({
       where: {
-        id: input.taskId,
+        id: taskId,
         userId: user.id,
       },
       data: {
         title,
-        description: input.description.trim() || null,
-        priority: input.priority,
+        description: description.trim() || null,
+        priority,
       },
     });
 
