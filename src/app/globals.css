@@ -11,11 +11,23 @@
 :root {
   --background: #f8fafc;
   --foreground: #0f172a;
+  --surface-card: #ffffff;
+  --surface-muted: #f1f5f9;
+  --border-subtle: #e2e8f0;
+  --border-hover: #cbd5e1;
+  --accent-glow: rgba(59, 130, 246, 0.08);
+  --grid-line: rgba(15, 23, 42, 0.035);
 }
 
 .dark {
-  --background: #020617;
+  --background: #080c15;
   --foreground: #f8fafc;
+  --surface-card: #0f172a;
+  --surface-muted: #131d31;
+  --border-subtle: #1e293b;
+  --border-hover: #334155;
+  --accent-glow: rgba(59, 130, 246, 0.15);
+  --grid-line: rgba(255, 255, 255, 0.03);
 }
 
 @theme inline {
@@ -32,6 +44,20 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   transition: background-color 0.2s ease, color 0.2s ease;
+  cursor: auto !important;
+}
+
+/* Force standard native cursor on all elements */
+html, body {
+  cursor: auto !important;
+}
+
+a, button, select, [role="button"], .cursor-pointer {
+  cursor: pointer !important;
+}
+
+input, textarea, [contenteditable="true"] {
+  cursor: text !important;
 }
 
 /* 
@@ -63,4 +89,93 @@ body {
 
 .dark ::-webkit-scrollbar-thumb:hover {
   background: #475569;
+}
+
+/* 
+ * -------------------------------------------------------------
+ * Ambient Grid Background Pattern
+ * -------------------------------------------------------------
+ * Ultra-subtle geometric grid for high-end developer interfaces.
+ */
+.devflow-bg-grid {
+  background-image: 
+    linear-gradient(to right, var(--grid-line) 1px, transparent 1px),
+    linear-gradient(to bottom, var(--grid-line) 1px, transparent 1px);
+  background-size: 32px 32px;
+}
+
+/* 
+ * -------------------------------------------------------------
+ * High-Performance 60fps CSS Keyframe Animations
+ * -------------------------------------------------------------
+ */
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-6px);
+  }
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+@keyframes pulse-subtle {
+  0%, 100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.75;
+    transform: scale(0.97);
+  }
+}
+
+@keyframes radar-wave {
+  0% {
+    transform: scale(0.95);
+    opacity: 0.8;
+  }
+  100% {
+    transform: scale(2.2);
+    opacity: 0;
+  }
+}
+
+.animate-float {
+  animation: float 5s ease-in-out infinite;
+}
+
+.animate-shimmer {
+  background-size: 200% 100%;
+  animation: shimmer 3s infinite linear;
+}
+
+.animate-pulse-subtle {
+  animation: pulse-subtle 2.5s ease-in-out infinite;
+}
+
+.animate-radar-wave {
+  animation: radar-wave 2s cubic-bezier(0, 0, 0.2, 1) infinite;
+}
+
+/* 
+ * -------------------------------------------------------------
+ * Accessibility: Respect Prefers-Reduced-Motion
+ * -------------------------------------------------------------
+ */
+@media (prefers-reduced-motion: reduce) {
+  *, ::before, ::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
 }

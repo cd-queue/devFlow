@@ -31,13 +31,13 @@ export default function SignOutButton() {
       type="button"
       onClick={handleSignOut}
       disabled={isSigningOut}
-      className="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold text-slate-700 dark:text-slate-300 hover:text-rose-600 dark:hover:text-rose-400 hover:bg-rose-50 dark:hover:bg-rose-950/40 border border-slate-200 dark:border-slate-800 hover:border-rose-200 dark:hover:border-rose-900 rounded-lg transition disabled:opacity-50"
+      className="inline-flex items-center gap-1.5 px-2.5 py-1.5 text-xs font-medium text-[#77716C] dark:text-[#A8A39D] hover:text-[#CE5C62] dark:hover:text-[#CE5C62] hover:bg-[#EFECE5]/60 dark:hover:bg-[#2A2731]/60 border border-[#E5E0D7] dark:border-[#33303C] hover:border-[#D4CCBF] dark:hover:border-[#444050] rounded-lg transition-colors disabled:opacity-50 cursor-pointer"
       title="Sign out of DevFlow"
     >
       {isSigningOut ? (
         /* Spinning Circle Indicator */
         <svg
-          className="w-3.5 h-3.5 animate-spin text-rose-600 dark:text-rose-400"
+          className="w-3.5 h-3.5 animate-spin text-[#CE5C62]"
           xmlns="http://www.w3.org/2000/svg"
           fill="none"
           viewBox="0 0 24 24"
@@ -59,7 +59,7 @@ export default function SignOutButton() {
       ) : (
         /* Sign Out Door Icon */
         <svg
-          className="w-3.5 h-3.5"
+          className="w-3.5 h-3.5 text-current"
           fill="none"
           stroke="currentColor"
           strokeWidth="1.75"

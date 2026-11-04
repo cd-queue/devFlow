@@ -55,15 +55,15 @@ export default function ThemeToggle() {
       onClick={toggleTheme}
       aria-label={isDark ? "Switch to Light Mode" : "Switch to Dark Mode"}
       title={isDark ? "Switch to Light Mode" : "Switch to Dark Mode"}
-      className="relative inline-flex items-center justify-center w-9 h-9 rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 text-slate-700 dark:text-slate-200 hover:text-slate-950 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-800 transition shadow-[0_1px_2px_rgba(0,0,0,0.02)] cursor-pointer"
+      className="relative inline-flex items-center justify-center w-8 h-8 rounded-lg border border-[#E5E0D7] dark:border-[#33303C] hover:border-[#D4CCBF] dark:hover:border-[#444050] bg-[#FFFFFF] dark:bg-[#201E25] text-[#25232A] dark:text-[#F5F3EF] hover:bg-[#EFECE5]/60 dark:hover:bg-[#2A2731]/60 transition-colors cursor-pointer"
     >
       {isDark ? (
         /* Sun Icon (displayed in dark mode) */
         <svg
-          className="w-4 h-4 text-amber-400"
+          className="w-4 h-4 text-[#C58A37]"
           fill="none"
           stroke="currentColor"
-          strokeWidth="2"
+          strokeWidth="1.75"
           viewBox="0 0 24 24"
         >
           <path
@@ -75,10 +75,10 @@ export default function ThemeToggle() {
       ) : (
         /* Moon Icon (displayed in light mode) */
         <svg
-          className="w-4 h-4 text-slate-700 dark:text-slate-200"
+          className="w-4 h-4 text-[#77716C]"
           fill="none"
           stroke="currentColor"
-          strokeWidth="2"
+          strokeWidth="1.75"
           viewBox="0 0 24 24"
         >
           <path

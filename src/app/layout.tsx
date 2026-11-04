@@ -51,7 +51,7 @@ export default function RootLayout({
       {/* suppressHydrationWarning on body prevents warnings caused by browser extensions (e.g. ColorZilla, Grammarly) injecting attributes like cz-shortcut-listen */}
       <body
         suppressHydrationWarning
-        className="min-h-full flex flex-col bg-slate-50 dark:bg-slate-950 text-slate-900 dark:text-slate-100 transition-colors duration-200"
+        className="min-h-full flex flex-col bg-[#f8fafc] dark:bg-[#080c15] text-slate-900 dark:text-slate-100 transition-colors duration-200 devflow-bg-grid"
       >
         {children}
       </body>

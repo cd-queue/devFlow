@@ -152,17 +152,18 @@ export default async function Home() {
     : "U";
 
   return (
-    <div className="min-h-screen bg-slate-100/70 dark:bg-slate-950 text-slate-900 dark:text-slate-100 flex flex-col font-sans transition-colors duration-200 selection:bg-blue-600 selection:text-white">
+    <div className="min-h-screen bg-[#F7F5F0] dark:bg-[#141318] text-[#25232A] dark:text-[#F5F3EF] flex flex-col font-sans transition-colors duration-200 selection:bg-[#F0ECFF] selection:text-[#6D4AFF] dark:selection:bg-[#6D4AFF]/30 dark:selection:text-[#F5F3EF]">
       {/* ------------------------------------------------------------- */}
       {/* 1. Header / Navigation Bar                                    */}
       {/* ------------------------------------------------------------- */}
-      <header className="sticky top-0 z-40 bg-white/85 dark:bg-slate-950/85 backdrop-blur-md border-b border-slate-200 dark:border-slate-800">
+      <header className="sticky top-0 z-40 bg-[#F7F5F0]/90 dark:bg-[#141318]/90 backdrop-blur-md border-b border-[#E5E0D7] dark:border-[#2A2731] transition-colors">
         <div className="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
           {/* Brand Logo & Connection Indicator */}
-          <div className="flex items-center gap-3.5">
-            <div className="w-9 h-9 rounded-xl bg-blue-600 flex items-center justify-center text-white shadow-md shadow-blue-500/20 font-bold text-sm">
+          <div className="flex items-center gap-3">
+            <div className="w-8 h-8 rounded-lg bg-[#25232A] dark:bg-[#F5F3EF] flex items-center justify-center text-[#F7F5F0] dark:text-[#25232A] shadow-xs">
+              {/* Geometric flow mark */}
               <svg
-                className="w-5 h-5 text-white"
+                className="w-4 h-4"
                 fill="none"
                 stroke="currentColor"
                 strokeWidth="2.5"
@@ -171,24 +172,21 @@ export default async function Home() {
                 <path
                   strokeLinecap="round"
                   strokeLinejoin="round"
-                  d="M13 10V3L4 14h7v7l9-11h-7z"
+                  d="M4 7h10M4 12h16M4 17h12"
                 />
               </svg>
             </div>
 
             <div className="flex items-baseline gap-1.5">
-              <span className="text-lg font-black tracking-tight text-slate-900 dark:text-white">
-                Dev<span className="text-blue-600 dark:text-blue-400">Flow</span>
-              </span>
-              <span className="text-[10px] font-mono uppercase text-slate-400 dark:text-slate-500 font-bold tracking-wider">
-                SaaS
+              <span className="text-lg font-bold tracking-tight text-[#25232A] dark:text-[#F5F3EF]">
+                Dev<span className="text-[#6D4AFF] dark:text-[#8A6BFF]">Flow</span>
               </span>
             </div>
 
             {/* Neon Connection status badge */}
-            <div className="hidden sm:flex items-center gap-2 ml-2 text-xs bg-slate-100 dark:bg-slate-900 text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-slate-800 px-3 py-1 rounded-full font-semibold">
-              <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
-              <span>Neon DB Active</span>
+            <div className="hidden sm:inline-flex items-center gap-1.5 text-xs text-[#77716C] dark:text-[#A8A39D] border border-[#E5E0D7] dark:border-[#33303C] bg-[#FFFFFF] dark:bg-[#201E25] px-2.5 py-1 rounded-md ml-1">
+              <span className="w-1.5 h-1.5 rounded-full bg-[#278568]" />
+              <span className="font-mono text-[11px]">Neon DB</span>
             </div>
           </div>
 
@@ -198,13 +196,13 @@ export default async function Home() {
             <ThemeToggle />
 
             {user ? (
-              <div className="flex items-center gap-3">
+              <div className="flex items-center gap-2.5">
                 {/* User chip */}
-                <div className="hidden sm:flex items-center gap-2.5 pl-2.5 pr-3.5 py-1.5 rounded-full border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 text-xs text-slate-800 dark:text-slate-200 shadow-sm">
-                  <span className="w-5 h-5 rounded-full bg-blue-600 text-white font-bold text-[11px] flex items-center justify-center">
+                <div className="hidden sm:flex items-center gap-2 pl-2 pr-3 py-1 rounded-full border border-[#E5E0D7] dark:border-[#33303C] bg-[#FFFFFF] dark:bg-[#201E25] text-xs text-[#25232A] dark:text-[#F5F3EF] shadow-2xs">
+                  <span className="w-5 h-5 rounded-full bg-[#F0ECFF] dark:bg-[#6D4AFF]/20 text-[#6D4AFF] dark:text-[#8A6BFF] font-semibold text-[11px] flex items-center justify-center">
                     {userInitial}
                   </span>
-                  <span className="font-semibold truncate max-w-[150px]">
+                  <span className="font-medium truncate max-w-[140px]">
                     {user.name || user.email}
                   </span>
                 </div>
@@ -212,17 +210,17 @@ export default async function Home() {
                 <SignOutButton />
               </div>
             ) : (
-              <div className="flex items-center gap-3">
+              <div className="flex items-center gap-2">
                 <a
                   href="/auth/sign-in"
-                  className="text-xs font-bold text-slate-700 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white px-3 py-2 rounded-lg transition"
+                  className="text-xs font-medium text-[#77716C] dark:text-[#A8A39D] hover:text-[#25232A] dark:hover:text-[#F5F3EF] px-3 py-1.5 rounded-md transition-colors"
                 >
                   Sign In
                 </a>
 
                 <a
                   href="/auth/sign-up"
-                  className="bg-blue-600 hover:bg-blue-700 active:bg-blue-800 text-white font-bold text-xs px-4 py-2 rounded-lg transition shadow-sm"
+                  className="bg-[#6D4AFF] hover:bg-[#5939D6] text-white font-medium text-xs px-3.5 py-1.5 rounded-md transition-colors shadow-2xs"
                 >
                   Sign Up
                 </a>
@@ -234,44 +232,145 @@ export default async function Home() {
 
       <main className="flex-1 pb-16">
         {/* ------------------------------------------------------------- */}
-        {/* 2. Compact Dashboard Hero / Header                            */}
+        {/* 2. Warm Editorial Hero Section                                */}
         {/* ------------------------------------------------------------- */}
-        <section className="max-w-7xl mx-auto px-6 pt-12 pb-8">
-          <div className="flex flex-col md:flex-row md:items-end justify-between gap-6">
-            <div className="space-y-3 max-w-2xl">
-              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-bold bg-blue-50 dark:bg-blue-950/80 text-blue-700 dark:text-blue-300 border border-blue-200/80 dark:border-blue-900">
-                <span>⚡ Orchestration Engine</span>
-                <span className="text-blue-300 dark:text-blue-700">•</span>
-                <span className="font-semibold text-blue-600 dark:text-blue-400">PostgreSQL + Prisma</span>
+        <section className="max-w-7xl mx-auto px-6 pt-16 pb-12 sm:pt-20 sm:pb-16">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center">
+            {/* Left Column: Expressive Typography & Value Proposition */}
+            <div className="lg:col-span-7 space-y-6">
+              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-medium bg-[#F0ECFF] dark:bg-[#6D4AFF]/15 text-[#6D4AFF] dark:text-[#8A6BFF] border border-[#6D4AFF]/20">
+                <span className="w-1.5 h-1.5 rounded-full bg-[#6D4AFF] dark:bg-[#8A6BFF]" />
+                <span>Precision task orchestration</span>
               </div>
 
-              <h1 className="text-4xl sm:text-5xl font-black tracking-tight text-slate-900 dark:text-white leading-[1.15]">
-                Engineering <span className="text-blue-600 dark:text-blue-400">Task Board</span>
+              <h1 className="text-4xl sm:text-6xl font-extrabold tracking-[-0.035em] text-[#25232A] dark:text-[#F5F3EF] leading-[1.08]">
+                Your work. <span className="text-[#6D4AFF] dark:text-[#8A6BFF]">In flow.</span>
               </h1>
 
-              <p className="text-base text-slate-600 dark:text-slate-400 leading-relaxed">
-                Streamlined, low-latency execution flow. Coordinate task states, track priorities,
-                and sync database operations with high visual fidelity.
+              <p className="text-base sm:text-lg text-[#77716C] dark:text-[#A8A39D] leading-relaxed max-w-xl">
+                A calmer, clearer way to plan tasks, track progress, and keep your work moving.
               </p>
+
+              {/* Refined CTA section using existing functionality */}
+              <div className="flex flex-wrap items-center gap-3 pt-2">
+                <a
+                  href="#board"
+                  className="inline-flex items-center gap-2 bg-[#6D4AFF] hover:bg-[#5939D6] text-white font-medium text-xs sm:text-sm px-5 py-2.5 rounded-lg transition-all shadow-xs hover:shadow-sm cursor-pointer"
+                >
+                  <span>Open Board</span>
+                  <svg
+                    className="w-4 h-4"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      d="M19 14l-7 7m0 0l-7-7m7 7V3"
+                    />
+                  </svg>
+                </a>
+
+                {user ? (
+                  <span className="inline-flex items-center gap-2 text-xs font-mono text-[#77716C] dark:text-[#A8A39D] px-3 py-2 rounded-lg border border-[#E5E0D7] dark:border-[#33303C] bg-[#FFFFFF] dark:bg-[#201E25]">
+                    <span className="w-1.5 h-1.5 rounded-full bg-[#278568]" />
+                    <span>Workspace active ({totalTasks} {totalTasks === 1 ? "task" : "tasks"})</span>
+                  </span>
+                ) : (
+                  <a
+                    href="/auth/sign-in"
+                    className="inline-flex items-center gap-2 bg-[#FFFFFF] dark:bg-[#201E25] hover:bg-[#EFECE5] dark:hover:bg-[#2A2731] text-[#25232A] dark:text-[#F5F3EF] border border-[#E5E0D7] dark:border-[#33303C] hover:border-[#D4CCBF] font-medium text-xs sm:text-sm px-4 py-2.5 rounded-lg transition-colors shadow-2xs"
+                  >
+                    <span>Sign in to manage tasks</span>
+                  </a>
+                )}
+              </div>
             </div>
 
-            {/* Quick action buttons */}
-            <div className="flex items-center gap-3 shrink-0">
-              <a
-                href="#board"
-                className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-white dark:bg-slate-900 hover:bg-slate-50 dark:hover:bg-slate-800 text-slate-800 dark:text-slate-200 text-xs font-bold border border-slate-300 dark:border-slate-700 shadow-sm transition"
-              >
-                <span>Browse Board</span>
-                <svg
-                  className="w-4 h-4 text-slate-400 dark:text-slate-500"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                  viewBox="0 0 24 24"
-                >
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
-                </svg>
-              </a>
+            {/* Right Column: Architectural Task Board Preview */}
+            <div className="lg:col-span-5 flex justify-center lg:justify-end">
+              <div className="relative rounded-2xl border border-[#E5E0D7] dark:border-[#2A2731] bg-[#FFFFFF] dark:bg-[#1E1C24] p-5 shadow-[0_4px_24px_-4px_rgba(37,35,42,0.06)] dark:shadow-[0_8px_32px_rgba(0,0,0,0.35)] space-y-4 max-w-md w-full">
+                {/* Preview header */}
+                <div className="flex items-center justify-between pb-3 border-b border-[#E5E0D7]/70 dark:border-[#2A2731]">
+                  <div className="flex items-center gap-2 text-xs font-mono text-[#77716C] dark:text-[#A8A39D]">
+                    <span className="w-2 h-2 rounded-full bg-[#6D4AFF]" />
+                    <span className="font-semibold text-[#25232A] dark:text-[#F5F3EF]">DevFlow</span>
+                    <span className="text-[#969089]">/</span>
+                    <span>Sprint Core</span>
+                  </div>
+                  <span className="text-[10px] font-mono uppercase tracking-wider px-2 py-0.5 rounded bg-[#EFECE5] dark:bg-[#2A2731] text-[#77716C] dark:text-[#A8A39D] border border-[#E5E0D7] dark:border-[#33303C]">
+                    Preview
+                  </span>
+                </div>
+
+                {/* Representative Task Cards */}
+                <div className="space-y-2.5">
+                  {/* Card 1: IN_PROGRESS */}
+                  <div className="p-3.5 rounded-xl border border-[#E5E0D7] dark:border-[#2A2731] bg-[#F7F5F0]/60 dark:bg-[#23202B]/60 space-y-2">
+                    <div className="flex items-start justify-between gap-2">
+                      <p className="text-xs font-semibold text-[#25232A] dark:text-[#F5F3EF]">
+                        Implement optimistic UI updates
+                      </p>
+                      <span className="text-[10px] font-mono font-medium px-2 py-0.5 rounded bg-[#CE5C62]/10 text-[#CE5C62] border border-[#CE5C62]/20">
+                        HIGH
+                      </span>
+                    </div>
+                    <div className="flex items-center justify-between text-[11px] text-[#77716C] dark:text-[#A8A39D] pt-1">
+                      <span className="inline-flex items-center gap-1.5 font-medium text-[#C58A37]">
+                        <span className="w-1.5 h-1.5 rounded-full bg-[#C58A37]" />
+                        In Progress
+                      </span>
+                      <span className="font-mono text-[#969089]">#df-104</span>
+                    </div>
+                  </div>
+
+                  {/* Card 2: TODO */}
+                  <div className="p-3.5 rounded-xl border border-[#E5E0D7] dark:border-[#2A2731] bg-[#F7F5F0]/60 dark:bg-[#23202B]/60 space-y-2">
+                    <div className="flex items-start justify-between gap-2">
+                      <p className="text-xs font-semibold text-[#25232A] dark:text-[#F5F3EF]">
+                        Audit keyboard navigation & focus rings
+                      </p>
+                      <span className="text-[10px] font-mono font-medium px-2 py-0.5 rounded bg-[#C58A37]/10 text-[#C58A37] border border-[#C58A37]/20">
+                        MEDIUM
+                      </span>
+                    </div>
+                    <div className="flex items-center justify-between text-[11px] text-[#77716C] dark:text-[#A8A39D] pt-1">
+                      <span className="inline-flex items-center gap-1.5 font-medium text-[#77716C] dark:text-[#A8A39D]">
+                        <span className="w-1.5 h-1.5 rounded-full bg-[#969089]" />
+                        To Do
+                      </span>
+                      <span className="font-mono text-[#969089]">#df-105</span>
+                    </div>
+                  </div>
+
+                  {/* Card 3: DONE */}
+                  <div className="p-3.5 rounded-xl border border-[#E5E0D7] dark:border-[#2A2731] bg-[#F7F5F0]/60 dark:bg-[#23202B]/60 space-y-2 opacity-85">
+                    <div className="flex items-start justify-between gap-2">
+                      <p className="text-xs font-semibold text-[#77716C] dark:text-[#A8A39D] line-through">
+                        Configure Prisma connection pool
+                      </p>
+                      <span className="text-[10px] font-mono font-medium px-2 py-0.5 rounded bg-[#EFECE5] dark:bg-[#2A2731] text-[#969089] border border-[#E5E0D7] dark:border-[#33303C]">
+                        LOW
+                      </span>
+                    </div>
+                    <div className="flex items-center justify-between text-[11px] text-[#77716C] dark:text-[#A8A39D] pt-1">
+                      <span className="inline-flex items-center gap-1.5 font-medium text-[#278568]">
+                        <span className="w-1.5 h-1.5 rounded-full bg-[#278568]" />
+                        Completed
+                      </span>
+                      <span className="font-mono text-[#969089]">#df-102</span>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Preview footer */}
+                <div className="pt-2 border-t border-[#E5E0D7]/70 dark:border-[#2A2731] flex items-center justify-between text-[11px] text-[#969089] dark:text-[#757069] font-mono">
+                  <span>Architecture</span>
+                  <span>Next.js + Prisma + Neon</span>
+                </div>
+              </div>
             </div>
           </div>
         </section>
