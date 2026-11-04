@@ -1,19 +1,20 @@
-
 "use client";
 
 import { useTransition } from "react";
 import { deleteTask } from "@/app/actions/taskActions";
 
-export default function DeleteTaskButton({
-  taskId,
-}: {
-  taskId: string;
-}) {
+/**
+ * DeleteTaskButton Component
+ * 
+ * Prompts user confirmation before executing the `deleteTask` Server Action.
+ * Displays a spinning loader circle during deletion.
+ */
+export default function DeleteTaskButton({ taskId }: { taskId: string }) {
   const [isPending, startTransition] = useTransition();
 
   function handleDelete() {
     const confirmed = window.confirm(
-      "Are you sure you want to delete this task?"
+      "Are you sure you want to permanently delete this task?"
     );
 
     if (!confirmed) return;
@@ -28,9 +29,48 @@ export default function DeleteTaskButton({
       type="button"
       onClick={handleDelete}
       disabled={isPending}
-      className="text-xs font-medium text-red-600 hover:text-red-700 disabled:opacity-50"
+      title="Delete task"
+      aria-label="Delete task"
+      className="inline-flex items-center justify-center w-8 h-8 rounded-lg text-slate-400 dark:text-slate-500 hover:text-rose-600 dark:hover:text-rose-400 hover:bg-rose-50 dark:hover:bg-rose-950/40 border border-transparent hover:border-rose-200 dark:hover:border-rose-900 transition disabled:opacity-50 disabled:cursor-wait"
     >
-      {isPending ? "Deleting..." : "Delete"}
+      {isPending ? (
+        /* Spinning Circle Indicator while deleting */
+        <svg
+          className="w-4 h-4 animate-spin text-rose-600 dark:text-rose-400"
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 24 24"
+        >
+          <circle
+            className="opacity-25"
+            cx="12"
+            cy="12"
+            r="10"
+            stroke="currentColor"
+            strokeWidth="3"
+          />
+          <path
+            className="opacity-80"
+            fill="currentColor"
+            d="M4 12a8 8 0 018-8v4a4 4 0 00-4 4H4z"
+          />
+        </svg>
+      ) : (
+        /* Trash Icon */
+        <svg
+          className="w-4 h-4"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="1.75"
+          viewBox="0 0 24 24"
+        >
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"
+          />
+        </svg>
+      )}
     </button>
   );
 }
