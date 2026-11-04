@@ -7,6 +7,17 @@ import ThemeToggle from "@/components/ThemeToggle";
 import OpenBoardButton from "@/components/OpenBoardButton";
 
 /**
+ * Task Model interface representing the database record shape
+ */
+type TaskItem = {
+  id: string;
+  title: string;
+  description: string | null;
+  status: "TODO" | "IN_PROGRESS" | "DONE";
+  priority: "LOW" | "MEDIUM" | "HIGH";
+};
+
+/**
  * Force dynamic rendering so Next.js reads the latest authentication session
  * cookies on every request instead of caching the page statically.
  */
@@ -35,7 +46,7 @@ export default async function Home() {
     : null;
 
   // Step 3: Fetch tasks belonging to the authenticated user (or empty array for guests)
-  const tasks = prismaUser
+  const tasks: TaskItem[] = prismaUser
     ? await prisma.task.findMany({
         where: {
           userId: prismaUser.id,
@@ -49,11 +60,13 @@ export default async function Home() {
   // Step 4: Compute live statistics
   const totalTasks = tasks.length;
   const inProgressTasks = tasks.filter(
-    (task) => task.status === "IN_PROGRESS"
+    (task: TaskItem) => task.status === "IN_PROGRESS"
   ).length;
-  const completedTasks = tasks.filter((task) => task.status === "DONE").length;
+  const completedTasks = tasks.filter(
+    (task: TaskItem) => task.status === "DONE"
+  ).length;
   const highPriorityTasks = tasks.filter(
-    (task) => task.priority === "HIGH" && task.status !== "DONE"
+    (task: TaskItem) => task.priority === "HIGH" && task.status !== "DONE"
   ).length;
 
   const completionRate =
