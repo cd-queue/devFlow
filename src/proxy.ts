@@ -15,7 +15,7 @@ const authMiddleware = auth.middleware({
   loginUrl: "/auth/sign-in",
 });
 
-export default async function middleware(request: NextRequest) {
+export default async function proxy(request: NextRequest) {
   const response = await authMiddleware(request);
 
   // If a guest visitor is on the home page ("/"), allow them to
