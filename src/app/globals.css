@@ -6,7 +6,7 @@
  * -------------------------------------------------------------
  * Custom variant enabling class-based dark mode toggle (e.g. <html class="dark">)
  */
-@variant dark (&:where(.dark, .dark *));
+@custom-variant dark (&:where(.dark, .dark *));
 
 :root {
   --background: #F7F5F0;

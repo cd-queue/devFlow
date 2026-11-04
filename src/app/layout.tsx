@@ -17,6 +17,10 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   title: "DevFlow — Modern Task Orchestration Board",
   description: "Linear-grade developer task board powered by Next.js, Prisma, and Neon PostgreSQL.",
+  icons: {
+    icon: "/icon.svg?v=2",
+    apple: "/icon.svg?v=2",
+  },
 };
 
 export default function RootLayout({
