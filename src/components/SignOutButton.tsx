@@ -12,18 +12,24 @@ import { authClient } from "@/lib/auth/client";
  */
 export default function SignOutButton() {
   const [isSigningOut, setIsSigningOut] = useState(false);
+  const [signOutError, setSignOutError] = useState<string | null>(null);
 
   async function handleSignOut() {
     setIsSigningOut(true);
+    setSignOutError(null);
     try {
-      await authClient.signOut();
+      const result = await authClient.signOut();
+      if (result.error) {
+        throw new Error(result.error.message || "Sign out was rejected");
+      }
+
+      window.location.replace("/");
     } catch (error) {
       console.error("Sign out failed:", error);
-    } finally {
-      // Hard navigation ensures Next.js client-side router cache is completely
-      // flushed and the homepage re-renders as an unauthenticated guest.
-      // eslint-disable-next-line @next/next/no-location-assign-relative-destination
-      window.location.href = "/";
+      setSignOutError(
+        error instanceof Error ? error.message : "Sign out failed. Please try again."
+      );
+      setIsSigningOut(false);
     }
   }
 
@@ -74,6 +80,11 @@ export default function SignOutButton() {
         </svg>
       )}
       <span>{isSigningOut ? "Signing out..." : "Sign Out"}</span>
+      {signOutError && (
+        <span role="alert" className="ml-2 text-[#CE5C62]">
+          {signOutError}
+        </span>
+      )}
     </button>
   );
 }
