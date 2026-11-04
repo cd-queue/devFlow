@@ -33,8 +33,13 @@ export const dynamic = "force-dynamic";
  */
 export default async function Home() {
   // Step 1: Retrieve user session from Neon Auth
-  const { data, error } = await auth.getSession();
-  const user = !error && data?.session && data.user ? data.user : null;
+  let user = null;
+  try {
+    const { data, error } = await auth.getSession();
+    user = !error && data?.session && data.user ? data.user : null;
+  } catch (err) {
+    console.error("Session retrieval error:", err);
+  }
 
   // Step 2: Ensure we match against the database user by ID or Email
   const prismaUser = user
