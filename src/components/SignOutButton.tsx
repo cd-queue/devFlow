@@ -1,28 +1,29 @@
 "use client";
 
 import { useState } from "react";
-import { useRouter } from "next/navigation";
 import { authClient } from "@/lib/auth/client";
 
 /**
  * SignOutButton Component
  * 
- * Terminates the Neon Auth session, clears cookies, and refreshes the router.
+ * Terminates the Neon Auth session, clears session cookies, and forces
+ * a hard navigation to "/" to completely flush Next.js App Router cache.
  * Displays a rotating loading circle while signing out.
  */
 export default function SignOutButton() {
-  const router = useRouter();
   const [isSigningOut, setIsSigningOut] = useState(false);
 
   async function handleSignOut() {
     setIsSigningOut(true);
     try {
       await authClient.signOut();
-      router.refresh();
-      router.push("/");
     } catch (error) {
       console.error("Sign out failed:", error);
-      setIsSigningOut(false);
+    } finally {
+      // Hard navigation ensures Next.js client-side router cache is completely
+      // flushed and the homepage re-renders as an unauthenticated guest.
+      // eslint-disable-next-line @next/next/no-location-assign-relative-destination
+      window.location.href = "/";
     }
   }
 
