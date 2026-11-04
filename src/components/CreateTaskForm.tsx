@@ -119,28 +119,28 @@ export default function CreateTaskForm({
     }
   }
 
-  // Priority color palettes for Light & Dark mode
+  // Priority color palettes matching the approved warm editorial system
   const priorityOptions = [
     {
       value: "LOW",
       label: "Low Priority",
-      color: "border-slate-200 dark:border-slate-800 text-slate-700 dark:text-slate-300 bg-slate-50 dark:bg-slate-900/60",
-      activeColor: "border-blue-500 bg-blue-50 dark:bg-blue-950/60 text-blue-700 dark:text-blue-300 ring-2 ring-blue-500/30",
-      dot: "bg-blue-400",
+      color: "border-[#E5E0D7] dark:border-[#2A2731] text-[#77716C] dark:text-[#A8A39D] bg-[#F7F5F0] dark:bg-[#1A1820]",
+      activeColor: "border-[#6D4AFF] bg-[#F0ECFF] dark:bg-[#6D4AFF]/15 text-[#6D4AFF] dark:text-[#8A6BFF] ring-1 ring-[#6D4AFF]/30",
+      dot: "bg-[#6D4AFF] dark:bg-[#8A6BFF]",
     },
     {
       value: "MEDIUM",
       label: "Medium Priority",
-      color: "border-slate-200 dark:border-slate-800 text-amber-800 dark:text-amber-300 bg-amber-50/50 dark:bg-amber-950/30",
-      activeColor: "border-amber-500 bg-amber-100/70 dark:bg-amber-950/80 text-amber-900 dark:text-amber-200 ring-2 ring-amber-500/30",
-      dot: "bg-amber-500",
+      color: "border-[#E5E0D7] dark:border-[#2A2731] text-[#77716C] dark:text-[#A8A39D] bg-[#F7F5F0] dark:bg-[#1A1820]",
+      activeColor: "border-[#C58A37] bg-[#C58A37]/10 dark:bg-[#C58A37]/15 text-[#C58A37] ring-1 ring-[#C58A37]/30",
+      dot: "bg-[#C58A37]",
     },
     {
       value: "HIGH",
       label: "High Priority",
-      color: "border-slate-200 dark:border-slate-800 text-rose-800 dark:text-rose-300 bg-rose-50/50 dark:bg-rose-950/30",
-      activeColor: "border-rose-500 bg-rose-100/70 dark:bg-rose-950/80 text-rose-900 dark:text-rose-200 ring-2 ring-rose-500/30",
-      dot: "bg-rose-500",
+      color: "border-[#E5E0D7] dark:border-[#2A2731] text-[#77716C] dark:text-[#A8A39D] bg-[#F7F5F0] dark:bg-[#1A1820]",
+      activeColor: "border-[#CE5C62] bg-[#CE5C62]/10 dark:bg-[#CE5C62]/15 text-[#CE5C62] ring-1 ring-[#CE5C62]/30",
+      dot: "bg-[#CE5C62]",
     },
   ] as const;
 
@@ -152,14 +152,14 @@ export default function CreateTaskForm({
   ] as const;
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-5">
+    <form onSubmit={handleSubmit} className="space-y-4">
       {/* Task Title Field */}
       <div>
         <label
           htmlFor="task-title"
-          className="block text-xs font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wider mb-2"
+          className="block text-xs font-semibold text-[#25232A] dark:text-[#F5F3EF] uppercase tracking-wider mb-1.5"
         >
-          Task Title <span className="text-rose-500">*</span>
+          Task Title <span className="text-[#CE5C62]">*</span>
         </label>
         <input
           id="task-title"
@@ -169,29 +169,29 @@ export default function CreateTaskForm({
           placeholder="e.g. Implement real-time WebSocket connection"
           disabled={isSaving}
           required
-          className="w-full text-sm font-medium px-4 py-3 rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 text-slate-900 dark:text-white placeholder:text-slate-400 dark:placeholder:text-slate-500 focus:outline-none focus:ring-2 focus:ring-blue-500/30 focus:border-blue-500 transition shadow-[0_1px_2px_rgba(0,0,0,0.02)] disabled:opacity-60"
+          className="w-full text-xs font-medium px-3.5 py-2.5 rounded-lg border border-[#E5E0D7] dark:border-[#2A2731] bg-[#FFFFFF] dark:bg-[#1A1820] text-[#25232A] dark:text-[#F5F3EF] placeholder:text-[#969089] dark:placeholder:text-[#757069] focus:outline-none focus:ring-1 focus:ring-[#6D4AFF]/30 focus:border-[#6D4AFF] transition shadow-2xs disabled:opacity-60"
         />
       </div>
 
       {/* Segmented Priority Control */}
       <div>
-        <label className="block text-xs font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wider mb-2">
+        <label className="block text-xs font-semibold text-[#25232A] dark:text-[#F5F3EF] uppercase tracking-wider mb-1.5">
           Priority Level
         </label>
-        <div className="grid grid-cols-3 gap-2.5">
+        <div className="grid grid-cols-3 gap-2">
           {priorityOptions.map((opt) => (
             <button
               key={opt.value}
               type="button"
               disabled={isSaving}
               onClick={() => setPriority(opt.value)}
-              className={`flex items-center justify-center gap-2 py-2.5 px-3 text-xs font-bold rounded-xl border transition cursor-pointer ${
+              className={`flex items-center justify-center gap-1.5 py-2 px-2.5 text-xs font-medium rounded-lg border transition cursor-pointer ${
                 priority === opt.value
                   ? opt.activeColor
-                  : `${opt.color} hover:bg-white dark:hover:bg-slate-800`
+                  : `${opt.color} hover:border-[#D4CCBF] dark:hover:border-[#3D3847]`
               }`}
             >
-              <span className={`w-2 h-2 rounded-full ${opt.dot}`} />
+              <span className={`w-1.5 h-1.5 rounded-full ${opt.dot}`} />
               <span>{opt.label}</span>
             </button>
           ))}
@@ -201,20 +201,20 @@ export default function CreateTaskForm({
       {/* Initial Status Column (Only when creating a new task) */}
       {!taskToEdit && (
         <div>
-          <label className="block text-xs font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wider mb-2">
+          <label className="block text-xs font-semibold text-[#25232A] dark:text-[#F5F3EF] uppercase tracking-wider mb-1.5">
             Target Column
           </label>
-          <div className="grid grid-cols-3 gap-2.5">
+          <div className="grid grid-cols-3 gap-2">
             {statusOptions.map((opt) => (
               <button
                 key={opt.value}
                 type="button"
                 disabled={isSaving}
                 onClick={() => setStatus(opt.value)}
-                className={`py-2.5 px-3 text-xs font-bold rounded-xl border transition cursor-pointer ${
+                className={`py-2 px-2.5 text-xs font-medium rounded-lg border transition cursor-pointer ${
                   status === opt.value
-                    ? "border-blue-600 bg-blue-50 dark:bg-blue-950/70 text-blue-700 dark:text-blue-300 ring-2 ring-blue-500/30"
-                    : "border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800"
+                    ? "border-[#6D4AFF] bg-[#F0ECFF] dark:bg-[#6D4AFF]/15 text-[#6D4AFF] dark:text-[#8A6BFF] ring-1 ring-[#6D4AFF]/30"
+                    : "border-[#E5E0D7] dark:border-[#2A2731] bg-[#FFFFFF] dark:bg-[#1A1820] text-[#77716C] dark:text-[#A8A39D] hover:bg-[#F7F5F0] dark:hover:bg-[#23202B]"
                 }`}
               >
                 {opt.label}
@@ -226,14 +226,14 @@ export default function CreateTaskForm({
 
       {/* Task Description Field */}
       <div>
-        <div className="flex justify-between items-center mb-2">
+        <div className="flex justify-between items-center mb-1.5">
           <label
             htmlFor="task-description"
-            className="block text-xs font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wider"
+            className="block text-xs font-semibold text-[#25232A] dark:text-[#F5F3EF] uppercase tracking-wider"
           >
-            Description <span className="text-slate-400 dark:text-slate-500 font-normal lowercase">(optional)</span>
+            Description <span className="text-[#969089] dark:text-[#757069] font-normal lowercase">(optional)</span>
           </label>
-          <span className="text-xs font-mono text-slate-400 dark:text-slate-500">
+          <span className="text-[11px] font-mono text-[#969089] dark:text-[#757069]">
             {description.length}/500
           </span>
         </div>
@@ -245,7 +245,7 @@ export default function CreateTaskForm({
           maxLength={500}
           placeholder="Add acceptance criteria, technical implementation details or links..."
           disabled={isSaving}
-          className="w-full text-sm px-4 py-3 rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 text-slate-900 dark:text-white placeholder:text-slate-400 dark:placeholder:text-slate-500 focus:outline-none focus:ring-2 focus:ring-blue-500/30 focus:border-blue-500 transition shadow-[0_1px_2px_rgba(0,0,0,0.02)] resize-none disabled:opacity-60"
+          className="w-full text-xs px-3.5 py-2.5 rounded-lg border border-[#E5E0D7] dark:border-[#2A2731] bg-[#FFFFFF] dark:bg-[#1A1820] text-[#25232A] dark:text-[#F5F3EF] placeholder:text-[#969089] dark:placeholder:text-[#757069] focus:outline-none focus:ring-1 focus:ring-[#6D4AFF]/30 focus:border-[#6D4AFF] transition shadow-2xs resize-none disabled:opacity-60"
         />
       </div>
 
@@ -253,15 +253,15 @@ export default function CreateTaskForm({
       {message && (
         <div
           role="status"
-          className={`text-sm font-semibold px-4 py-3 rounded-xl flex items-center gap-2.5 ${
+          className={`text-xs font-medium px-3.5 py-2.5 rounded-lg flex items-center gap-2 ${
             isSuccess
-              ? "bg-emerald-50 dark:bg-emerald-950/60 text-emerald-800 dark:text-emerald-300 border border-emerald-200 dark:border-emerald-800"
-              : "bg-rose-50 dark:bg-rose-950/60 text-rose-800 dark:text-rose-300 border border-rose-200 dark:border-rose-800"
+              ? "bg-[#278568]/10 text-[#278568] border border-[#278568]/20"
+              : "bg-[#CE5C62]/10 text-[#CE5C62] border border-[#CE5C62]/20"
           }`}
         >
           {isSuccess ? (
             <svg
-              className="w-4 h-4 text-emerald-600 dark:text-emerald-400 shrink-0"
+              className="w-4 h-4 text-[#278568] shrink-0"
               fill="none"
               stroke="currentColor"
               strokeWidth="2.5"
@@ -271,7 +271,7 @@ export default function CreateTaskForm({
             </svg>
           ) : (
             <svg
-              className="w-4 h-4 text-rose-600 dark:text-rose-400 shrink-0"
+              className="w-4 h-4 text-[#CE5C62] shrink-0"
               fill="none"
               stroke="currentColor"
               strokeWidth="2.5"
@@ -289,7 +289,7 @@ export default function CreateTaskForm({
       )}
 
       {/* Form Submission Buttons */}
-      <div className="flex items-center justify-end gap-3 pt-2">
+      <div className="flex items-center justify-end gap-2.5 pt-2">
         {taskToEdit && (
           <button
             type="button"
@@ -298,7 +298,7 @@ export default function CreateTaskForm({
               resetForm();
               onTaskSaved?.();
             }}
-            className="px-5 py-2.5 text-xs font-bold text-slate-700 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 border border-slate-200 dark:border-slate-700 rounded-xl transition cursor-pointer"
+            className="px-4 py-2 text-xs font-medium text-[#77716C] dark:text-[#A8A39D] hover:text-[#25232A] dark:hover:text-[#F5F3EF] bg-[#EFECE5] dark:bg-[#2A2731] hover:bg-[#E5E0D7] dark:hover:bg-[#33303C] border border-[#E5E0D7] dark:border-[#33303C] rounded-lg transition-colors cursor-pointer"
           >
             Cancel
           </button>
@@ -307,12 +307,12 @@ export default function CreateTaskForm({
         <button
           type="submit"
           disabled={isSaving || !title.trim()}
-          className="inline-flex items-center gap-2 bg-blue-600 hover:bg-blue-700 active:bg-blue-800 text-white text-xs font-bold px-6 py-2.5 rounded-xl transition shadow-md hover:shadow-lg disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer"
+          className="inline-flex items-center gap-1.5 bg-[#6D4AFF] hover:bg-[#5939D6] text-white text-xs font-medium px-4 py-2 rounded-lg transition-colors shadow-2xs disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer"
         >
           {isSaving && (
             /* Animated Spinning Circle Indicator */
             <svg
-              className="w-4 h-4 animate-spin text-white"
+              className="w-3.5 h-3.5 animate-spin text-white"
               xmlns="http://www.w3.org/2000/svg"
               fill="none"
               viewBox="0 0 24 24"

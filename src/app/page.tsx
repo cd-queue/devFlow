@@ -4,6 +4,7 @@ import TaskBoardClient from "@/components/TaskBoardClient";
 import { auth } from "@/lib/auth/server";
 import SignOutButton from "@/components/SignOutButton";
 import ThemeToggle from "@/components/ThemeToggle";
+import OpenBoardButton from "@/components/OpenBoardButton";
 
 /**
  * Force dynamic rendering so Next.js reads the latest authentication session
@@ -68,7 +69,7 @@ export default async function Home() {
       subtext: totalTasks === 1 ? "1 active task" : `${totalTasks} items tracked`,
       icon: (
         <svg
-          className="w-5 h-5 text-blue-600 dark:text-blue-400"
+          className="w-4 h-4 text-[#6D4AFF] dark:text-[#8A6BFF]"
           fill="none"
           stroke="currentColor"
           strokeWidth="2"
@@ -88,7 +89,7 @@ export default async function Home() {
       subtext: `${highPriorityTasks} high priority`,
       icon: (
         <svg
-          className="w-5 h-5 text-amber-600 dark:text-amber-400"
+          className="w-4 h-4 text-[#C58A37]"
           fill="none"
           stroke="currentColor"
           strokeWidth="2"
@@ -108,7 +109,7 @@ export default async function Home() {
       subtext: `${completionRate} completion rate`,
       icon: (
         <svg
-          className="w-5 h-5 text-emerald-600 dark:text-emerald-400"
+          className="w-4 h-4 text-[#278568]"
           fill="none"
           stroke="currentColor"
           strokeWidth="2"
@@ -128,7 +129,7 @@ export default async function Home() {
       subtext: "Neon serverless pool active",
       icon: (
         <svg
-          className="w-5 h-5 text-indigo-600 dark:text-indigo-400"
+          className="w-4 h-4 text-[#6D4AFF] dark:text-[#8A6BFF]"
           fill="none"
           stroke="currentColor"
           strokeWidth="2"
@@ -251,27 +252,9 @@ export default async function Home() {
                 A calmer, clearer way to plan tasks, track progress, and keep your work moving.
               </p>
 
-              {/* Refined CTA section using existing functionality */}
+              {/* Refined CTA section with smooth scroll animation */}
               <div className="flex flex-wrap items-center gap-3 pt-2">
-                <a
-                  href="#board"
-                  className="inline-flex items-center gap-2 bg-[#6D4AFF] hover:bg-[#5939D6] text-white font-medium text-xs sm:text-sm px-5 py-2.5 rounded-lg transition-all shadow-xs hover:shadow-sm cursor-pointer"
-                >
-                  <span>Open Board</span>
-                  <svg
-                    className="w-4 h-4"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="2"
-                    viewBox="0 0 24 24"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      d="M19 14l-7 7m0 0l-7-7m7 7V3"
-                    />
-                  </svg>
-                </a>
+                <OpenBoardButton />
 
                 {user ? (
                   <span className="inline-flex items-center gap-2 text-xs font-mono text-[#77716C] dark:text-[#A8A39D] px-3 py-2 rounded-lg border border-[#E5E0D7] dark:border-[#33303C] bg-[#FFFFFF] dark:bg-[#201E25]">
@@ -378,27 +361,27 @@ export default async function Home() {
         {/* ------------------------------------------------------------- */}
         {/* 3. Metric Stats Row (4-Cards Grid)                            */}
         {/* ------------------------------------------------------------- */}
-        <section className="max-w-7xl mx-auto px-6 mb-10">
+        <section className="max-w-7xl mx-auto px-6 mb-12">
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
             {stats.map((stat, i) => (
               <div
                 key={i}
-                className="bg-white dark:bg-slate-900 border border-slate-200/90 dark:border-slate-800 rounded-2xl p-5 shadow-[0_2px_8px_rgba(0,0,0,0.03)] dark:shadow-[0_4px_16px_rgba(0,0,0,0.3)] hover:border-slate-300 dark:hover:border-slate-700 transition-all duration-150 space-y-3"
+                className="bg-[#FFFFFF] dark:bg-[#1C1A22] border border-[#E5E0D7] dark:border-[#2A2731] hover:border-[#D4CCBF] dark:hover:border-[#3D3847] rounded-xl p-5 shadow-[0_1px_4px_rgba(37,35,42,0.03)] dark:shadow-[0_2px_8px_rgba(0,0,0,0.25)] transition-all duration-150 space-y-3"
               >
                 <div className="flex items-center justify-between">
-                  <span className="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider">
+                  <span className="text-[11px] font-mono font-semibold text-[#77716C] dark:text-[#A8A39D] uppercase tracking-wider">
                     {stat.label}
                   </span>
-                  <div className="p-2 rounded-xl bg-slate-100 dark:bg-slate-800 border border-slate-200/60 dark:border-slate-700/60">
+                  <div className="p-2 rounded-lg bg-[#F7F5F0] dark:bg-[#23202B] border border-[#E5E0D7] dark:border-[#2A2731]">
                     {stat.icon}
                   </div>
                 </div>
 
                 <div className="space-y-1">
-                  <p className="text-3xl font-extrabold font-mono tracking-tight text-slate-900 dark:text-white">
+                  <p className="text-3xl font-extrabold font-mono tracking-tight text-[#25232A] dark:text-[#F5F3EF]">
                     {stat.value}
                   </p>
-                  <p className="text-xs font-semibold text-slate-500 dark:text-slate-400 truncate">
+                  <p className="text-xs text-[#969089] dark:text-[#757069] truncate">
                     {stat.subtext}
                   </p>
                 </div>
@@ -414,23 +397,23 @@ export default async function Home() {
       </main>
 
       {/* ------------------------------------------------------------- */}
-      {/* 5. Minimalist Footer                                          */}
+      {/* 5. Minimalist Warm Footer                                     */}
       {/* ------------------------------------------------------------- */}
-      <footer className="border-t border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-950 py-7 transition-colors">
-        <div className="max-w-7xl mx-auto px-6 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-500 dark:text-slate-400">
+      <footer className="border-t border-[#E5E0D7] dark:border-[#2A2731] bg-[#F7F5F0] dark:bg-[#141318] py-7 transition-colors">
+        <div className="max-w-7xl mx-auto px-6 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-[#77716C] dark:text-[#A8A39D]">
           <div className="flex items-center gap-2">
-            <span className="font-bold text-slate-800 dark:text-slate-200">DevFlow</span>
-            <span>•</span>
-            <span>Linear-grade project orchestration</span>
+            <span className="font-bold text-[#25232A] dark:text-[#F5F3EF]">DevFlow</span>
+            <span className="text-[#969089]">/</span>
+            <span>Task orchestration workspace</span>
           </div>
 
-          <div className="flex items-center gap-4 text-xs font-medium">
-            <span className="flex items-center gap-2 text-emerald-600 dark:text-emerald-400 font-semibold">
-              <span className="w-2 h-2 rounded-full bg-emerald-500" />
-              All Systems Operational
+          <div className="flex items-center gap-4 text-xs">
+            <span className="flex items-center gap-2 text-[#278568] font-medium">
+              <span className="w-1.5 h-1.5 rounded-full bg-[#278568]" />
+              Database Connected
             </span>
-            <span className="text-slate-300 dark:text-slate-700">|</span>
-            <span>© {new Date().getFullYear()} DevFlow</span>
+            <span className="text-[#E5E0D7] dark:text-[#2A2731]">|</span>
+            <span className="text-[#969089]">© {new Date().getFullYear()} DevFlow</span>
           </div>
         </div>
       </footer>

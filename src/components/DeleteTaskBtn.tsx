@@ -31,12 +31,12 @@ export default function DeleteTaskButton({ taskId }: { taskId: string }) {
       disabled={isPending}
       title="Delete task"
       aria-label="Delete task"
-      className="inline-flex items-center justify-center w-8 h-8 rounded-lg text-slate-400 dark:text-slate-500 hover:text-rose-600 dark:hover:text-rose-400 hover:bg-rose-50 dark:hover:bg-rose-950/40 border border-transparent hover:border-rose-200 dark:hover:border-rose-900 transition disabled:opacity-50 disabled:cursor-wait"
+      className="inline-flex items-center justify-center w-7 h-7 rounded-md text-[#77716C] dark:text-[#A8A39D] hover:text-[#CE5C62] dark:hover:text-[#CE5C62] hover:bg-[#CE5C62]/10 border border-transparent hover:border-[#CE5C62]/20 transition-colors disabled:opacity-50 disabled:cursor-wait cursor-pointer"
     >
       {isPending ? (
         /* Spinning Circle Indicator while deleting */
         <svg
-          className="w-4 h-4 animate-spin text-rose-600 dark:text-rose-400"
+          className="w-3.5 h-3.5 animate-spin text-[#CE5C62]"
           xmlns="http://www.w3.org/2000/svg"
           fill="none"
           viewBox="0 0 24 24"

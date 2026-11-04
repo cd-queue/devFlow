@@ -46,9 +46,9 @@ export default function SignUpPage() {
   }
 
   return (
-    <main className="flex min-h-screen items-center justify-center bg-slate-100/70 dark:bg-slate-950 p-6 text-slate-900 dark:text-slate-100 font-sans transition-colors duration-200 selection:bg-blue-600 selection:text-white relative">
+    <main className="flex min-h-screen items-center justify-center bg-[#F7F5F0] dark:bg-[#141318] p-6 text-[#25232A] dark:text-[#F5F3EF] font-sans transition-colors duration-200 selection:bg-[#F0ECFF] selection:text-[#6D4AFF] dark:selection:bg-[#6D4AFF]/30 dark:selection:text-[#F5F3EF] relative devflow-bg-grid">
       {/* Top Theme Switcher */}
-      <div className="absolute top-6 right-6">
+      <div className="absolute top-6 right-6 z-10">
         <ThemeToggle />
       </div>
 
@@ -57,11 +57,13 @@ export default function SignUpPage() {
         <div className="text-center space-y-2">
           <Link
             href="/"
-            className="inline-flex items-center gap-2 mb-2 group text-left"
+            className="inline-flex items-center gap-2.5 mb-2 group text-left transition-opacity hover:opacity-90"
+            aria-label="DevFlow - Return to homepage"
           >
-            <div className="w-9 h-9 rounded-xl bg-blue-600 flex items-center justify-center text-white shadow-md shadow-blue-500/20 font-bold text-sm">
+            <div className="w-8 h-8 rounded-lg bg-[#25232A] dark:bg-[#F5F3EF] flex items-center justify-center text-[#F7F5F0] dark:text-[#25232A] shadow-xs group-hover:scale-105 transition-transform duration-150">
+              {/* Geometric flow mark */}
               <svg
-                className="w-5 h-5 text-white"
+                className="w-4 h-4"
                 fill="none"
                 stroke="currentColor"
                 strokeWidth="2.5"
@@ -70,30 +72,32 @@ export default function SignUpPage() {
                 <path
                   strokeLinecap="round"
                   strokeLinejoin="round"
-                  d="M13 10V3L4 14h7v7l9-11h-7z"
+                  d="M4 7h10M4 12h16M4 17h12"
                 />
               </svg>
             </div>
-            <span className="text-xl font-black tracking-tight text-slate-900 dark:text-white">
-              Dev<span className="text-blue-600 dark:text-blue-400">Flow</span>
-            </span>
+            <div className="flex items-baseline gap-1.5">
+              <span className="text-xl font-bold tracking-tight text-[#25232A] dark:text-[#F5F3EF]">
+                Dev<span className="text-[#6D4AFF] dark:text-[#8A6BFF]">Flow</span>
+              </span>
+            </div>
           </Link>
 
-          <h1 className="text-2xl font-black tracking-tight text-slate-900 dark:text-white">
+          <h1 className="text-2xl font-bold tracking-tight text-[#25232A] dark:text-[#F5F3EF]">
             Create an account
           </h1>
-          <p className="text-xs font-medium text-slate-500 dark:text-slate-400">
+          <p className="text-xs font-normal text-[#77716C] dark:text-[#A6A099]">
             Start organizing and orchestrating engineering tasks.
           </p>
         </div>
 
         {/* Card */}
-        <div className="bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 p-6 sm:p-8 shadow-[0_4px_24px_rgba(0,0,0,0.04)] dark:shadow-[0_8px_32px_rgba(0,0,0,0.4)] space-y-4">
+        <div className="bg-[#FFFFFF] dark:bg-[#1C1A22] rounded-2xl border border-[#E5E0D7] dark:border-[#2A2731] p-6 sm:p-8 shadow-[0_4px_24px_-4px_rgba(37,35,42,0.06)] dark:shadow-[0_8px_32px_rgba(0,0,0,0.35)] space-y-4">
           <form onSubmit={handleSignUp} className="space-y-4">
             <div>
               <label
                 htmlFor="name"
-                className="block text-xs font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wider mb-1.5"
+                className="block text-xs font-semibold text-[#25232A] dark:text-[#F5F3EF] mb-1.5"
               >
                 Full Name
               </label>
@@ -104,14 +108,14 @@ export default function SignUpPage() {
                 required
                 autoComplete="name"
                 placeholder="Jane Doe"
-                className="w-full text-xs font-medium px-4 py-3 rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 text-slate-900 dark:text-white placeholder:text-slate-400 dark:placeholder:text-slate-500 focus:outline-none focus:ring-2 focus:ring-blue-500/30 focus:border-blue-500 transition shadow-[0_1px_2px_rgba(0,0,0,0.02)]"
+                className="w-full text-xs font-medium px-3.5 py-2.5 rounded-xl border border-[#E5E0D7] dark:border-[#2A2731] bg-[#FFFFFF] dark:bg-[#16151B] text-[#25232A] dark:text-[#F5F3EF] placeholder:text-[#969089] dark:placeholder:text-[#757069] focus:outline-none focus:ring-2 focus:ring-[#6D4AFF]/20 focus:border-[#6D4AFF] dark:focus:border-[#8A6BFF] transition shadow-2xs"
               />
             </div>
 
             <div>
               <label
                 htmlFor="email"
-                className="block text-xs font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wider mb-1.5"
+                className="block text-xs font-semibold text-[#25232A] dark:text-[#F5F3EF] mb-1.5"
               >
                 Work Email
               </label>
@@ -123,16 +127,16 @@ export default function SignUpPage() {
                 required
                 autoComplete="email"
                 placeholder="developer@company.com"
-                className="w-full text-xs font-medium px-4 py-3 rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 text-slate-900 dark:text-white placeholder:text-slate-400 dark:placeholder:text-slate-500 focus:outline-none focus:ring-2 focus:ring-blue-500/30 focus:border-blue-500 transition shadow-[0_1px_2px_rgba(0,0,0,0.02)]"
+                className="w-full text-xs font-medium px-3.5 py-2.5 rounded-xl border border-[#E5E0D7] dark:border-[#2A2731] bg-[#FFFFFF] dark:bg-[#16151B] text-[#25232A] dark:text-[#F5F3EF] placeholder:text-[#969089] dark:placeholder:text-[#757069] focus:outline-none focus:ring-2 focus:ring-[#6D4AFF]/20 focus:border-[#6D4AFF] dark:focus:border-[#8A6BFF] transition shadow-2xs"
               />
             </div>
 
             <div>
               <label
                 htmlFor="password"
-                className="block text-xs font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wider mb-1.5"
+                className="block text-xs font-semibold text-[#25232A] dark:text-[#F5F3EF] mb-1.5"
               >
-                Password <span className="text-slate-400 dark:text-slate-500 font-normal lowercase">(min 8 characters)</span>
+                Password <span className="text-[#969089] dark:text-[#757069] font-normal lowercase">(min 8 characters)</span>
               </label>
               <input
                 id="password"
@@ -143,23 +147,36 @@ export default function SignUpPage() {
                 minLength={8}
                 autoComplete="new-password"
                 placeholder="••••••••"
-                className="w-full text-xs font-medium px-4 py-3 rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 text-slate-900 dark:text-white placeholder:text-slate-400 dark:placeholder:text-slate-500 focus:outline-none focus:ring-2 focus:ring-blue-500/30 focus:border-blue-500 transition shadow-[0_1px_2px_rgba(0,0,0,0.02)]"
+                className="w-full text-xs font-medium px-3.5 py-2.5 rounded-xl border border-[#E5E0D7] dark:border-[#2A2731] bg-[#FFFFFF] dark:bg-[#16151B] text-[#25232A] dark:text-[#F5F3EF] placeholder:text-[#969089] dark:placeholder:text-[#757069] focus:outline-none focus:ring-2 focus:ring-[#6D4AFF]/20 focus:border-[#6D4AFF] dark:focus:border-[#8A6BFF] transition shadow-2xs"
               />
             </div>
 
             {message && (
-              <p
+              <div
                 role="status"
-                className="text-xs font-semibold text-rose-800 dark:text-rose-300 bg-rose-50 dark:bg-rose-950/60 border border-rose-200 dark:border-rose-900 p-3 rounded-xl"
+                className="text-xs font-medium text-[#CE5C62] bg-[#CE5C62]/10 border border-[#CE5C62]/20 p-3 rounded-xl flex items-center gap-2"
               >
-                {message}
-              </p>
+                <svg
+                  className="w-4 h-4 shrink-0 text-[#CE5C62]"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"
+                  />
+                </svg>
+                <span>{message}</span>
+              </div>
             )}
 
             <button
               type="submit"
               disabled={loading}
-              className="w-full flex items-center justify-center gap-2 py-3 px-4 text-xs font-bold text-white bg-blue-600 hover:bg-blue-700 active:bg-blue-800 rounded-xl transition shadow-md disabled:opacity-50 cursor-pointer"
+              className="w-full flex items-center justify-center gap-2 py-2.5 px-4 text-xs font-semibold text-white bg-[#6D4AFF] hover:bg-[#5939D6] active:bg-[#4D30BD] rounded-xl transition shadow-xs hover:shadow-sm disabled:opacity-50 cursor-pointer"
             >
               {loading && (
                 <svg
@@ -189,11 +206,11 @@ export default function SignUpPage() {
         </div>
 
         {/* Footer Link */}
-        <p className="text-center text-xs font-medium text-slate-500 dark:text-slate-400">
+        <p className="text-center text-xs text-[#77716C] dark:text-[#A6A099]">
           Already have an account?{" "}
           <Link
             href="/auth/sign-in"
-            className="text-blue-600 dark:text-blue-400 font-bold hover:underline"
+            className="text-[#6D4AFF] dark:text-[#8A6BFF] font-semibold hover:underline underline-offset-2 ml-1"
           >
             Sign in
           </Link>

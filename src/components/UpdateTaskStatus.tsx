@@ -29,19 +29,19 @@ export default function UpdateTaskStatus({
     });
   }
 
-  // Dot colors per status
+  // Dot colors per status matching the approved warm editorial system
   const statusConfig = {
     TODO: {
       label: "To Do",
-      dot: "bg-slate-400 dark:bg-slate-500",
+      dot: "bg-[#969089]",
     },
     IN_PROGRESS: {
       label: "In Progress",
-      dot: "bg-amber-500 dark:bg-amber-400",
+      dot: "bg-[#C58A37]",
     },
     DONE: {
       label: "Completed",
-      dot: "bg-emerald-500 dark:bg-emerald-400",
+      dot: "bg-[#278568]",
     },
   };
 
@@ -52,7 +52,7 @@ export default function UpdateTaskStatus({
         disabled={isPending}
         onChange={(e) => handleChange(e.target.value as TaskStatus)}
         aria-label="Change task status"
-        className="appearance-none text-xs font-semibold pl-6 pr-6 py-1.5 rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 text-slate-800 dark:text-slate-200 hover:bg-slate-50 dark:hover:bg-slate-800/80 hover:border-slate-300 dark:hover:border-slate-700 focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition shadow-[0_1px_2px_rgba(0,0,0,0.02)] cursor-pointer disabled:opacity-60 disabled:cursor-wait"
+        className="appearance-none text-xs font-medium pl-6 pr-6 py-1.5 rounded-lg border border-[#E5E0D7] dark:border-[#2A2731] bg-[#FFFFFF] dark:bg-[#1E1C24] text-[#25232A] dark:text-[#F5F3EF] hover:border-[#D4CCBF] dark:hover:border-[#3D3847] hover:bg-[#F7F5F0] dark:hover:bg-[#23202B] focus:outline-none focus:ring-1 focus:ring-[#6D4AFF]/30 focus:border-[#6D4AFF] transition cursor-pointer disabled:opacity-60 disabled:cursor-wait shadow-2xs"
       >
         <option value="TODO">To Do</option>
         <option value="IN_PROGRESS">In Progress</option>
@@ -63,7 +63,7 @@ export default function UpdateTaskStatus({
       <div className="absolute left-2.5 pointer-events-none flex items-center justify-center">
         {isPending ? (
           <svg
-            className="w-3 h-3 animate-spin text-blue-600 dark:text-blue-400"
+            className="w-3 h-3 animate-spin text-[#6D4AFF] dark:text-[#8A6BFF]"
             xmlns="http://www.w3.org/2000/svg"
             fill="none"
             viewBox="0 0 24 24"
@@ -90,7 +90,7 @@ export default function UpdateTaskStatus({
       </div>
 
       {/* Down Chevron Icon */}
-      <div className="absolute right-2.5 pointer-events-none text-slate-400 dark:text-slate-500">
+      <div className="absolute right-2.5 pointer-events-none text-[#969089]">
         <svg
           className="w-3 h-3"
           fill="none"

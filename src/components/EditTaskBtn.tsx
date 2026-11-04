@@ -16,7 +16,7 @@ export default function EditTaskButton({ onEdit }: EditTaskButtonProps) {
       onClick={onEdit}
       title="Edit task"
       aria-label="Edit task"
-      className="inline-flex items-center justify-center w-8 h-8 rounded-lg text-slate-400 dark:text-slate-500 hover:text-slate-900 dark:hover:text-slate-100 hover:bg-slate-100 dark:hover:bg-slate-800 border border-transparent hover:border-slate-200 dark:hover:border-slate-700 transition"
+      className="inline-flex items-center justify-center w-7 h-7 rounded-md text-[#77716C] dark:text-[#A8A39D] hover:text-[#25232A] dark:hover:text-[#F5F3EF] hover:bg-[#EFECE5] dark:hover:bg-[#2A2731] border border-transparent hover:border-[#E5E0D7] dark:hover:border-[#33303C] transition-colors cursor-pointer"
     >
       <svg
         className="w-4 h-4"

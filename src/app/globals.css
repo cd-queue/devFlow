@@ -9,25 +9,31 @@
 @variant dark (&:where(.dark, .dark *));
 
 :root {
-  --background: #f8fafc;
-  --foreground: #0f172a;
-  --surface-card: #ffffff;
-  --surface-muted: #f1f5f9;
-  --border-subtle: #e2e8f0;
-  --border-hover: #cbd5e1;
-  --accent-glow: rgba(59, 130, 246, 0.08);
-  --grid-line: rgba(15, 23, 42, 0.035);
+  --background: #F7F5F0;
+  --foreground: #25232A;
+  --surface-card: #FFFFFF;
+  --surface-muted: #EFECE5;
+  --border-subtle: #E5E0D7;
+  --border-hover: #D4CCBF;
+  --accent-primary: #6D4AFF;
+  --accent-hover: #5939D6;
+  --accent-subtle: #F0ECFF;
+  --accent-glow: rgba(109, 74, 255, 0.08);
+  --grid-line: rgba(37, 35, 42, 0.035);
 }
 
 .dark {
-  --background: #080c15;
-  --foreground: #f8fafc;
-  --surface-card: #0f172a;
-  --surface-muted: #131d31;
-  --border-subtle: #1e293b;
-  --border-hover: #334155;
-  --accent-glow: rgba(59, 130, 246, 0.15);
-  --grid-line: rgba(255, 255, 255, 0.03);
+  --background: #141318;
+  --foreground: #F5F3EF;
+  --surface-card: #1C1A22;
+  --surface-muted: #201E25;
+  --border-subtle: #2A2731;
+  --border-hover: #3A3644;
+  --accent-primary: #8A6BFF;
+  --accent-hover: #7552F2;
+  --accent-subtle: rgba(109, 74, 255, 0.15);
+  --accent-glow: rgba(109, 74, 255, 0.15);
+  --grid-line: rgba(245, 243, 239, 0.03);
 }
 
 @theme inline {
@@ -37,14 +43,50 @@
   --font-mono: var(--font-geist-mono);
 }
 
+html {
+  scroll-behavior: smooth;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}
+
 body {
   background-color: var(--background);
   color: var(--foreground);
   font-family: var(--font-geist-sans), ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  transition: background-color 0.2s ease, color 0.2s ease;
   cursor: auto !important;
+}
+
+/* 
+ * -------------------------------------------------------------
+ * Smooth Dark/Light Mode Theme Transitions
+ * -------------------------------------------------------------
+ * When theme-transition is toggled on <html>, every background, border,
+ * text, shadow, and icon cross-fades smoothly over 400ms without abrupt flashing.
+ */
+html.theme-transition,
+html.theme-transition *,
+html.theme-transition *::before,
+html.theme-transition *::after {
+  transition: background-color 0.4s cubic-bezier(0.4, 0, 0.2, 1),
+              border-color 0.4s cubic-bezier(0.4, 0, 0.2, 1),
+              color 0.4s cubic-bezier(0.4, 0, 0.2, 1),
+              fill 0.4s cubic-bezier(0.4, 0, 0.2, 1),
+              stroke 0.4s cubic-bezier(0.4, 0, 0.2, 1),
+              box-shadow 0.4s cubic-bezier(0.4, 0, 0.2, 1) !important;
+  transition-delay: 0s !important;
+}
+
+/* Native hardware-accelerated View Transitions API smooth cross-fade */
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation-duration: 0.35s;
+  animation-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 /* Force standard native cursor on all elements */

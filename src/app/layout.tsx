@@ -28,7 +28,7 @@ export default function RootLayout({
     <html
       lang="en"
       suppressHydrationWarning
-      className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
+      className={`${geistSans.variable} ${geistMono.variable} h-full scroll-smooth antialiased`}
     >
       <head>
         {/* Anti-FOUC script: Immediately loads theme preference from localStorage before first paint */}
@@ -51,7 +51,7 @@ export default function RootLayout({
       {/* suppressHydrationWarning on body prevents warnings caused by browser extensions (e.g. ColorZilla, Grammarly) injecting attributes like cz-shortcut-listen */}
       <body
         suppressHydrationWarning
-        className="min-h-full flex flex-col bg-[#f8fafc] dark:bg-[#080c15] text-slate-900 dark:text-slate-100 transition-colors duration-200 devflow-bg-grid"
+        className="min-h-full flex flex-col bg-[#F7F5F0] dark:bg-[#141318] text-[#25232A] dark:text-[#F5F3EF] transition-colors duration-200 devflow-bg-grid"
       >
         {children}
       </body>
