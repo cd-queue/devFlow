@@ -26,11 +26,20 @@ export default async function proxy(request: NextRequest) {
     response.headers.get("location")?.includes("/auth/sign-in")
   ) {
     const nextResponse = NextResponse.next();
-    response.headers.forEach((value, key) => {
-      if (key.toLowerCase() === "set-cookie") {
-        nextResponse.headers.append(key, value);
+
+    // `Headers.forEach()` can combine multiple Set-Cookie headers into one
+    // comma-separated value. Browsers do not reliably split that value back
+    // into cookies, which can leave the session cookie alive on Vercel.
+    const setCookies = response.headers.getSetCookie?.() ?? [];
+    if (setCookies.length > 0) {
+      for (const cookie of setCookies) {
+        nextResponse.headers.append("Set-Cookie", cookie);
       }
-    });
+    } else {
+      // Fallback for runtimes that do not expose Headers.getSetCookie().
+      const cookie = response.headers.get("set-cookie");
+      if (cookie) nextResponse.headers.set("Set-Cookie", cookie);
+    }
     return nextResponse;
   }
 
