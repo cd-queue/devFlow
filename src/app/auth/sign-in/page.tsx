@@ -3,7 +3,6 @@
 import { useState } from "react";
 import { authClient } from "@/lib/auth/client";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
 import ThemeToggle from "@/components/ThemeToggle";
 
 /**
@@ -15,8 +14,6 @@ import ThemeToggle from "@/components/ThemeToggle";
  * Features Dark & Light theme integration and responsive layout.
  */
 export default function SignInPage() {
-  const router = useRouter();
-
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [message, setMessage] = useState("");
@@ -40,8 +37,10 @@ export default function SignInPage() {
         return;
       }
 
-      router.push("/");
-      router.refresh();
+      // Hard navigation ensures Next.js client router cache is flushed
+      // and the homepage loads with fresh server session cookies.
+      // eslint-disable-next-line @next/next/no-location-assign-relative-destination
+      window.location.href = "/";
     } catch {
       setMessage("Something went wrong. Please try again.");
     } finally {

@@ -20,11 +20,18 @@ export default async function proxy(request: NextRequest) {
 
   // If a guest visitor is on the home page ("/"), allow them to
   // view the board instead of redirecting them to the login page.
+  // We forward any Set-Cookie headers (e.g. session clearance on logout).
   if (
     request.nextUrl.pathname === "/" &&
     response.headers.get("location")?.includes("/auth/sign-in")
   ) {
-    return NextResponse.next();
+    const nextResponse = NextResponse.next();
+    response.headers.forEach((value, key) => {
+      if (key.toLowerCase() === "set-cookie") {
+        nextResponse.headers.append(key, value);
+      }
+    });
+    return nextResponse;
   }
 
   return response;
